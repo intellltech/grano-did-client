@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/EG-easy/did-client/issues"
   },
-  "homepage": "https://github.com/EG-easy/did-client#readme"
+  "homepage": "https://github.com/EG-easy/did-client#readme",
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  }
 }
