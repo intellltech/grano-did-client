@@ -4,7 +4,8 @@
   "description": "client library for did contract applications",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "export NODE_ENV=development; jest --forceExit --detectOpenHandles",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,8 @@
   "homepage": "https://github.com/EG-easy/did-client#readme",
   "devDependencies": {
     "eslint": "^8.21.0",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-openreachtech": "^0.1.0",
     "jest": "^28.1.3"
   }
 }
