@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/EG-easy/did-client#readme",
   "devDependencies": {
-    "eslint": "^8.21.0"
+    "eslint": "^8.21.0",
+    "jest": "^28.1.3"
   }
 }
