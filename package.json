@@ -21,9 +21,15 @@
   },
   "homepage": "https://github.com/EG-easy/did-client#readme",
   "devDependencies": {
+    "@types/jest": "^28.1.6",
     "eslint": "^8.21.0",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-openreachtech": "^0.1.0",
     "jest": "^28.1.3"
+  },
+  "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.28.11",
+    "@cosmjs/tendermint-rpc": "^0.28.11",
+    "dotenv": "^16.0.1"
   }
 }
