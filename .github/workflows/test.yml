@@ -23,6 +23,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
           node-version: ${{ matrix.node-version }}
+      - name: Create env
+        run: |
+          touch .env
+          echo END_POINT=${{ secrets.END_POINT }} >> .env
+          echo MNEMONIC=${{ secrets.MNEMONIC }} >> .env
+          echo PREFIX=${{ secrets.PREFIX }} >> .env
       - name: Use Golang
         uses: actions/setup-go@v3
         with:
