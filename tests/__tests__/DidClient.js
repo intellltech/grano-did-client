@@ -1,9 +1,8 @@
 // @ts-check
 'use strict'
 
-// const { CosmWasmClient } = require('@cosmjs/cosmwasm-stargate')
 const DidClient = require('../../lib/DidClient')
-const DidConfig = require('../../lib/DidConfig')
+const { mockDidConfig } = require('../mocks/MockDidConfig')
 
 describe('DidClient', () => {
   describe('.create()', () => {
@@ -19,12 +18,8 @@ describe('DidClient', () => {
 describe('DidClient', () => {
   describe('.createFulfilled()', () => {
     test('instance of the class', async () => {
-      const mockConfigParam = {
-        endPoint: 'http://localhost:26657'
-      }
-
       const client = await DidClient.createFulfilled(
-        DidConfig.create(mockConfigParam)
+        mockDidConfig
       )
 
       expect(client)
@@ -36,15 +31,11 @@ describe('DidClient', () => {
 describe('DidClient', () => {
   describe('.getChainId()', () => {
     test('getChainId', async () => {
-      const mockConfigParam = {
-        endPoint: 'http://localhost:26657'
-      }
-
-      const didClient = await DidClient.createFulfilled(
-        DidConfig.create(mockConfigParam)
+      const client = await DidClient.createFulfilled(
+        mockDidConfig
       )
 
-      const chainId = await didClient.getChainId()
+      const chainId = await client.getChainId()
 
       expect(chainId).toBe('did-1')
     })
