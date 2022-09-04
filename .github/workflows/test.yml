@@ -27,6 +27,7 @@ jobs:
         run: |
           touch .env
           echo END_POINT=${{ secrets.END_POINT }} >> .env
+          echo DENOM=${{ secrets.DENOM }} >> .env
           echo MNEMONIC=${{ secrets.MNEMONIC }} >> .env
           echo PREFIX=${{ secrets.PREFIX }} >> .env
       - name: Use Golang
