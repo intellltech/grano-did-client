@@ -2,6 +2,7 @@
 'use strict'
 
 const objectContaining = expect.objectContaining
+const arrayContaining = expect.arrayContaining
 
 const DidClient = require('../../lib/DidClient')
 const { mockDidConfig } = require('../mocks/MockDidConfig')
@@ -175,6 +176,74 @@ describe('DidClient', () => {
 
         const identityOwnerQueryForNewAddressResult = await client.identityOwner(oldOwnerAddress)
         expect(identityOwnerQueryForNewAddressResult.owner).toEqual(newOwnerAddress)
+      })
+    })
+  })
+})
+
+describe('DidClient', () => {
+  describe('setAttribute(identity,name,value,validity)', () => {
+    describe('setAttribute successfully', () => {
+      const tables = [
+        {
+          codeId: 1,
+          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+          name: 'age',
+          value: '20',
+          validity: 100,
+          expectedResponse: {
+            logs: expect.any(Array),
+            height: expect.any(Number),
+            transactionHash: expect.any(String),
+            gasWanted: expect.any(Number),
+            gasUsed: expect.any(Number)
+          },
+          expectedWasmEvent: {
+            type: 'wasm',
+            attributes: arrayContaining([
+              {
+                key: 'identity',
+                value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              },
+              {
+                key: 'name',
+                value: 'age',
+              },
+              {
+                key: 'value',
+                value: '20',
+              },
+              {
+                key: 'validTo',
+                value: expect.any(String),
+              },
+              {
+                key: 'previousChange',
+                value: '0',
+              },
+            ])
+          }
+        }
+      ]
+
+      test.each(tables)('codeId: $codeId', async ({
+        codeId,
+        address,
+        name,
+        value,
+        validity,
+        expectedResponse,
+        expectedWasmEvent,
+      }) => {
+        const client = await DidClient.createFulfilled(
+          mockDidConfig
+        )
+        await client.instantiate(codeId)
+
+        const response = await client.setAttribute(address, name, value, validity)
+        expect(response).toEqual(expectedResponse)
+        const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
+        expect(wasmEvent).toEqual(expectedWasmEvent)
       })
     })
   })
