@@ -78,3 +78,34 @@ describe('DidClient', () => {
     })
   })
 })
+
+describe('DidClient', () => {
+  describe('.instantiate()', () => {
+    describe('instantiate successfully', () => {
+      const tables = [
+        {
+          codeId: 1,
+          expected: objectContaining({
+            contractAddress: expect.any(String),
+            logs: expect.any(Array),
+            height: expect.any(Number),
+            transactionHash: expect.any(String),
+            gasWanted: expect.any(Number),
+            gasUsed: expect.any(Number)
+          })
+        }
+      ]
+
+      test.each(tables)('codeId: $codeId', async ({
+        codeId,
+        expected,
+      }) => {
+        const client = await DidClient.createFulfilled(
+          mockDidConfig
+        )
+        const response = await client.instantiate(codeId)
+        expect(response).toEqual(expected)
+      })
+    })
+  })
+})
