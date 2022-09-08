@@ -109,3 +109,32 @@ describe('DidClient', () => {
     })
   })
 })
+
+describe('DidClient', () => {
+  describe('identityOwner(address)', () => {
+    describe('identityOwner successfully', () => {
+      const tables = [
+        {
+          codeId: 1,
+          address: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          expected: {
+            owner: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          }
+        }
+      ]
+
+      test.each(tables)('codeId: $codeId', async ({
+        codeId,
+        address,
+        expected,
+      }) => {
+        const client = await DidClient.createFulfilled(
+          mockDidConfig
+        )
+        await client.instantiate(codeId)
+        const response = await client.identityOwner(address)
+        expect(response).toEqual(expected)
+      })
+    })
+  })
+})
