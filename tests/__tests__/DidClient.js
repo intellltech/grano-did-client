@@ -248,3 +248,65 @@ describe('DidClient', () => {
     })
   })
 })
+
+describe('DidClient', () => {
+  describe('revokeAttribute(identity,name,value)', () => {
+    describe('revokeAttribute successfully', () => {
+      const tables = [
+        {
+          codeId: 1,
+          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+          name: 'age',
+          value: '20',
+          expectedResponse: {
+            logs: expect.any(Array),
+            height: expect.any(Number),
+            transactionHash: expect.any(String),
+            gasWanted: expect.any(Number),
+            gasUsed: expect.any(Number)
+          },
+          expectedWasmEvent: {
+            type: 'wasm',
+            attributes: arrayContaining([
+              {
+                key: 'identity',
+                value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              },
+              {
+                key: 'name',
+                value: 'age',
+              },
+              {
+                key: 'value',
+                value: '20',
+              },
+              {
+                key: 'validTo',
+                value: '0',
+              },
+            ])
+          }
+        }
+      ]
+
+      test.each(tables)('codeId: $codeId', async ({
+        codeId,
+        address,
+        name,
+        value,
+        expectedResponse,
+        expectedWasmEvent,
+      }) => {
+        const client = await DidClient.createFulfilled(
+          mockDidConfig
+        )
+        await client.instantiate(codeId)
+
+        const response = await client.revokeAttribute(address, name, value)
+        expect(response).toEqual(expectedResponse)
+        const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
+        expect(wasmEvent).toEqual(expectedWasmEvent)
+      })
+    })
+  })
+})
