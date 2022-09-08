@@ -138,3 +138,44 @@ describe('DidClient', () => {
     })
   })
 })
+
+describe('DidClient', () => {
+  describe('changeOwner(old, new)', () => {
+    describe('changeOwner successfully', () => {
+      const tables = [
+        {
+          codeId: 1,
+          oldOwnerAddress: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+          newOwnerAddress: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          expected: {
+            logs: expect.any(Array),
+            height: expect.any(Number),
+            transactionHash: expect.any(String),
+            gasWanted: expect.any(Number),
+            gasUsed: expect.any(Number)
+          }
+        }
+      ]
+
+      test.each(tables)('codeId: $codeId', async ({
+        codeId,
+        oldOwnerAddress,
+        newOwnerAddress,
+        expected,
+      }) => {
+        const client = await DidClient.createFulfilled(
+          mockDidConfig
+        )
+        await client.instantiate(codeId)
+        const identityOwnerQueryForOldAddressResult = await client.identityOwner(oldOwnerAddress)
+        expect(identityOwnerQueryForOldAddressResult.owner).toEqual(oldOwnerAddress)
+
+        const response = await client.changeOwner(oldOwnerAddress, newOwnerAddress)
+        expect(response).toEqual(expected)
+
+        const identityOwnerQueryForNewAddressResult = await client.identityOwner(oldOwnerAddress)
+        expect(identityOwnerQueryForNewAddressResult.owner).toEqual(newOwnerAddress)
+      })
+    })
+  })
+})
