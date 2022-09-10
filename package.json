@@ -1,6 +1,6 @@
 {
-  "name": "did-client",
-  "version": "0.1.0",
+  "name": "@eg-easy/did-client",
+  "version": "0.0.0",
   "description": "client library for did contract applications",
   "main": "index.js",
   "scripts": {
