@@ -2,6 +2,12 @@
   "name": "@eg-easy/did-client",
   "version": "0.0.0",
   "description": "client library for did contract applications",
+  "files": [
+    "lib/",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "export NODE_ENV=development; jest --forceExit --detectOpenHandles",
