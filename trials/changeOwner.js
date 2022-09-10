@@ -11,16 +11,35 @@ const main = async () => {
   const wasmPath = './wasm/did_contract.wasm'
   const result = await didClient.upload(wasmPath)
 
-  const codeId = result.codeId
-  await didClient.instantiate(codeId)
+  const instantiateParams = {
+    codeId: result.codeId
+  }
+  await didClient.instantiate(instantiateParams)
 
   const oldOwnerAddress = 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u'
   const newOwnerAddress = 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv'
-  const identityOwnerQueryForOldAddressResult = await didClient.identityOwner(oldOwnerAddress)
+
+  const oldIdentityOwnerParams = {
+    address: oldOwnerAddress
+  }
+
+  const identityOwnerQueryForOldAddressResult = await didClient.identityOwner(oldIdentityOwnerParams)
   console.log(identityOwnerQueryForOldAddressResult)
-  const response = await didClient.changeOwner(oldOwnerAddress, newOwnerAddress)
+
+
+  const changeOwnerParams = {
+    oldOwnerAddress: oldOwnerAddress,
+    newOwnerAddress: newOwnerAddress,
+  }
+
+  const response = await didClient.changeOwner(changeOwnerParams)
   console.log(response)
-  const identityOwnerQueryForNewAddressResult = await didClient.identityOwner(oldOwnerAddress)
+
+  const newIdentityOwnerParams = {
+    address: newOwnerAddress
+  }
+
+  const identityOwnerQueryForNewAddressResult = await didClient.identityOwner(newIdentityOwnerParams)
   console.log(identityOwnerQueryForNewAddressResult)
 }
 

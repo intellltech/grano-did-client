@@ -104,7 +104,10 @@ describe('DidClient', () => {
         const client = await DidClient.createFulfilled(
           mockDidConfig
         )
-        const response = await client.instantiate(codeId)
+        const instantiateParams = {
+          codeId: codeId
+        }
+        const response = await client.instantiate(instantiateParams)
         expect(response).toEqual(expected)
       })
     })
@@ -132,8 +135,16 @@ describe('DidClient', () => {
         const client = await DidClient.createFulfilled(
           mockDidConfig
         )
-        await client.instantiate(codeId)
-        const response = await client.identityOwner(address)
+
+        const instantiateParams = {
+          codeId: codeId
+        }
+        await client.instantiate(instantiateParams)
+
+        const identityOwnerParams = {
+          address: address,
+        }
+        const response = await client.identityOwner(identityOwnerParams)
         expect(response).toEqual(expected)
       })
     })
@@ -167,14 +178,28 @@ describe('DidClient', () => {
         const client = await DidClient.createFulfilled(
           mockDidConfig
         )
-        await client.instantiate(codeId)
-        const identityOwnerQueryForOldAddressResult = await client.identityOwner(oldOwnerAddress)
+        const instantiateParams = {
+          codeId: codeId
+        }
+        await client.instantiate(instantiateParams)
+
+        const oldIdentityOwnerParams = {
+          address: oldOwnerAddress
+        }
+        const identityOwnerQueryForOldAddressResult = await client.identityOwner(oldIdentityOwnerParams)
         expect(identityOwnerQueryForOldAddressResult.owner).toEqual(oldOwnerAddress)
 
-        const response = await client.changeOwner(oldOwnerAddress, newOwnerAddress)
+        const changeOwnerParams = {
+          oldOwnerAddress: oldOwnerAddress,
+          newOwnerAddress: newOwnerAddress,
+        }
+        const response = await client.changeOwner(changeOwnerParams)
         expect(response).toEqual(expected)
 
-        const identityOwnerQueryForNewAddressResult = await client.identityOwner(oldOwnerAddress)
+        const newIdentityOwnerParams = {
+          address: newOwnerAddress
+        }
+        const identityOwnerQueryForNewAddressResult = await client.identityOwner(newIdentityOwnerParams)
         expect(identityOwnerQueryForNewAddressResult.owner).toEqual(newOwnerAddress)
       })
     })
@@ -238,9 +263,19 @@ describe('DidClient', () => {
         const client = await DidClient.createFulfilled(
           mockDidConfig
         )
-        await client.instantiate(codeId)
+        const instantiateParams = {
+          codeId: codeId
+        }
+        await client.instantiate(instantiateParams)
 
-        const response = await client.setAttribute(address, name, value, validity)
+        const setAttributeParams = {
+          identity: address,
+          name: name,
+          value: value,
+          validity: validity
+        }
+
+        const response = await client.setAttribute(setAttributeParams)
         expect(response).toEqual(expectedResponse)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
         expect(wasmEvent).toEqual(expectedWasmEvent)
@@ -300,9 +335,18 @@ describe('DidClient', () => {
         const client = await DidClient.createFulfilled(
           mockDidConfig
         )
-        await client.instantiate(codeId)
+        const instantiateParams = {
+          codeId: codeId
+        }
+        await client.instantiate(instantiateParams)
 
-        const response = await client.revokeAttribute(address, name, value)
+        const revokeAttributeParams = {
+          identity: address,
+          name: name,
+          value: value,
+        }
+
+        const response = await client.revokeAttribute(revokeAttributeParams)
         expect(response).toEqual(expectedResponse)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
         expect(wasmEvent).toEqual(expectedWasmEvent)

@@ -11,8 +11,10 @@ const main = async () => {
   const wasmPath = './wasm/did_contract.wasm'
   const result = await didClient.upload(wasmPath)
 
-  const codeId = result.codeId
-  const instantiateResult = await didClient.instantiate(codeId)
+  const instantiateParams = {
+    codeId: result.codeId
+  }
+  const instantiateResult = await didClient.instantiate(instantiateParams)
   console.log(instantiateResult)
 }
 

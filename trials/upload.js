@@ -11,8 +11,6 @@ const main = async () => {
   const wasmPath = './wasm/did_contract.wasm'
   const result = await didClient.upload(wasmPath)
   console.log(result)
-  // console.log(JSON.stringify(didClient))
-  // console.dir(didClient)
 }
 
 main()

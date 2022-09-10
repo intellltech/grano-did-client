@@ -11,11 +11,15 @@ const main = async () => {
   const wasmPath = './wasm/did_contract.wasm'
   const result = await didClient.upload(wasmPath)
 
-  const codeId = result.codeId
-  await didClient.instantiate(codeId)
+  const instantiateParams = {
+    codeId: result.codeId
+  }
+  await didClient.instantiate(instantiateParams)
 
-  const address = 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv'
-  const identityOwnerQueryResult = await didClient.identityOwner(address)
+  const identityOwnerParams = {
+    address: 'wasm1edz508tre9d9n9nf8r82prpafhds9v6dp0su0y'
+  }
+  const identityOwnerQueryResult = await didClient.identityOwner(identityOwnerParams)
   console.log(identityOwnerQueryResult)
 }
 

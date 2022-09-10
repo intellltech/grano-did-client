@@ -11,11 +11,18 @@ const main = async () => {
   const wasmPath = './wasm/did_contract.wasm'
   const result = await didClient.upload(wasmPath)
 
-  const codeId = result.codeId
-  await didClient.instantiate(codeId)
+  const instantiateParams = {
+    codeId: result.codeId
+  }
+  await didClient.instantiate(instantiateParams)
 
-  const address = 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u'
-  const response = await didClient.setAttribute(address,'age', '20', 100)
+  const setAttributeParams = {
+    identity: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+    name: 'age',
+    value: '20',
+    validity: 100
+  }
+  const response = await didClient.setAttribute(setAttributeParams)
   const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
   console.log(wasmEvent)
   console.log(JSON.stringify(response))
