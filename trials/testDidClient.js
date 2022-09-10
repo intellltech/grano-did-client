@@ -12,8 +12,6 @@ const main = async () => {
   const didClient = await DidClient.createFulfilled(config)
   const result = await didClient.getChainId()
   console.log(result)
-  // console.log(JSON.stringify(didClient))
-  // console.dir(didClient)
 }
 
 main()
