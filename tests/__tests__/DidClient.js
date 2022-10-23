@@ -115,14 +115,14 @@ describe('DidClient', () => {
 })
 
 describe('DidClient', () => {
-  describe('identityOwner(address)', () => {
-    describe('identityOwner successfully', () => {
+  describe('controller(address)', () => {
+    describe('controller successfully', () => {
       const tables = [
         {
           codeId: 1,
           address: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
           expected: {
-            owner: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
           }
         }
       ]
@@ -141,10 +141,10 @@ describe('DidClient', () => {
         }
         await client.instantiate(instantiateParams)
 
-        const identityOwnerParams = {
+        const controllerParams = {
           address: address,
         }
-        const response = await client.identityOwner(identityOwnerParams)
+        const response = await client.controller(controllerParams)
         expect(response).toEqual(expected)
       })
     })
@@ -152,13 +152,13 @@ describe('DidClient', () => {
 })
 
 describe('DidClient', () => {
-  describe('changeOwner(old, new)', () => {
-    describe('changeOwner successfully', () => {
+  describe('changeController(old, new)', () => {
+    describe('changeController successfully', () => {
       const tables = [
         {
           codeId: 1,
-          oldOwnerAddress: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          newOwnerAddress: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          oldControllerAddress: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+          newControllerAddress: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
           expected: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -171,8 +171,8 @@ describe('DidClient', () => {
 
       test.each(tables)('codeId: $codeId', async ({
         codeId,
-        oldOwnerAddress,
-        newOwnerAddress,
+        oldControllerAddress,
+        newControllerAddress,
         expected,
       }) => {
         const client = await DidClient.createFulfilled(
@@ -183,31 +183,31 @@ describe('DidClient', () => {
         }
         await client.instantiate(instantiateParams)
 
-        const oldIdentityOwnerParams = {
-          address: oldOwnerAddress
+        const oldControllerParams = {
+          address: oldControllerAddress
         }
-        const identityOwnerQueryForOldAddressResult = await client.identityOwner(oldIdentityOwnerParams)
-        expect(identityOwnerQueryForOldAddressResult.owner).toEqual(oldOwnerAddress)
+        const controllerQueryForOldAddressResult = await client.controller(oldControllerParams)
+        expect(controllerQueryForOldAddressResult.controller).toEqual(oldControllerAddress)
 
-        const changeOwnerParams = {
-          oldOwnerAddress: oldOwnerAddress,
-          newOwnerAddress: newOwnerAddress,
+        const changeControllerParams = {
+          oldControllerAddress: oldControllerAddress,
+          newControllerAddress: newControllerAddress,
         }
-        const response = await client.changeOwner(changeOwnerParams)
+        const response = await client.changeController(changeControllerParams)
         expect(response).toEqual(expected)
 
-        const newIdentityOwnerParams = {
-          address: newOwnerAddress
+        const newControllerParams = {
+          address: newControllerAddress
         }
-        const identityOwnerQueryForNewAddressResult = await client.identityOwner(newIdentityOwnerParams)
-        expect(identityOwnerQueryForNewAddressResult.owner).toEqual(newOwnerAddress)
+        const controllerQueryForNewAddressResult = await client.controller(newControllerParams)
+        expect(controllerQueryForNewAddressResult.controller).toEqual(newControllerAddress)
       })
     })
   })
 })
 
 describe('DidClient', () => {
-  describe('setAttribute(identity,name,value,validity)', () => {
+  describe('setAttribute(identifier,name,value,validity)', () => {
     describe('setAttribute successfully', () => {
       const tables = [
         {
@@ -227,7 +227,7 @@ describe('DidClient', () => {
             type: 'wasm',
             attributes: arrayContaining([
               {
-                key: 'identity',
+                key: 'identifier',
                 value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               },
               {
@@ -269,7 +269,7 @@ describe('DidClient', () => {
         await client.instantiate(instantiateParams)
 
         const setAttributeParams = {
-          identity: address,
+          identifier: address,
           name: name,
           value: value,
           validity: validity
@@ -285,7 +285,7 @@ describe('DidClient', () => {
 })
 
 describe('DidClient', () => {
-  describe('revokeAttribute(identity,name,value)', () => {
+  describe('revokeAttribute(identifier,name,value)', () => {
     describe('revokeAttribute successfully', () => {
       const tables = [
         {
@@ -304,7 +304,7 @@ describe('DidClient', () => {
             type: 'wasm',
             attributes: arrayContaining([
               {
-                key: 'identity',
+                key: 'identifier',
                 value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               },
               {
@@ -341,7 +341,7 @@ describe('DidClient', () => {
         await client.instantiate(instantiateParams)
 
         const revokeAttributeParams = {
-          identity: address,
+          identifier: address,
           name: name,
           value: value,
         }
