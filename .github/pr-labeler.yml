@@ -1,0 +1,6 @@
+enhancement: ['feature/*', 'feat/*', 'feature-*', 'feat-*']
+bug: ['fix/*', 'fix-*']
+refactor: ['refactor/*', 'refactoring/*', 'refactor-*', 'refactoring-*']
+documentation: ['spec/*', 'doc/*', 'spec-*', 'doc-*']
+env: ['env/*', 'env-*']
+tidyup: ['tidyup/*', 'tidy-*']
