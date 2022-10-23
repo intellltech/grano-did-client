@@ -3,17 +3,15 @@ tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: '🛠 Enhancement'
     labels:
-      - 'feature'
+      - 'enhancement'
   - title: '🐛 Bug Fixes'
     labels:
-      - 'fix'
       - 'bug'
   - title: '💪 Refactoring'
     label: 'refactor'
-  - title: '📄 Specification'
+  - title: '📄 Documentation'
     labels: 
-      - 'spec'
-      - 'docs'
+      - 'documentation'
   - title: '⚙️ Environment'
     label: 'env'
   - title: '🧹 Tidy Up'
