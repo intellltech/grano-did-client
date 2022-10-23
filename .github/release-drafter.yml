@@ -41,12 +41,10 @@ autolabeler:
       - '/(refactor|refactoring)[/-].+/'
   - label: tidyup
     branch:
-      - '/^tidy[/-].+/'
+      - '/^tidyup[/-].+/'
   - label: env
     branch:
       - '/^env[/-].+/'
   - label: documentation
     branch:
       - '/doc(umentation)[/-].+/'
-    files:
-      - '*.md'
