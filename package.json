@@ -1,5 +1,5 @@
 {
-  "name": "@eg-easy/did-client",
+  "name": "@eg-easy/grano-did-client",
   "version": "0.0.0",
   "description": "client library for did contract applications",
   "files": [
