@@ -41,7 +41,7 @@ autolabeler:
       - '/(refactor|refactoring)[/-].+/'
   - label: tidyup
     branch:
-      - '/^tidy[/-].+/'
+      - '/^tidyup[/-].+/'
   - label: env
     branch:
       - '/^env[/-].+/'
