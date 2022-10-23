@@ -2,20 +2,17 @@ name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: '🛠 Enhancement'
-    labels:
-      - 'enhancement'
+    label: 'enhancement'
   - title: '🐛 Bug Fixes'
-    labels:
-      - 'bug'
+    label: 'bug'
   - title: '💪 Refactoring'
     label: 'refactor'
-  - title: '📄 Documentation'
-    labels: 
-      - 'documentation'
-  - title: '⚙️ Environment'
-    label: 'env'
   - title: '🧹 Tidy Up'
     label: 'tidyup'
+  - title: '⚙️ Environment'
+    label: 'env'
+  - title: '📄 Documentation'
+    label: 'documentation'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
@@ -32,3 +29,24 @@ version-resolver:
 template: |
   ## Changes
   $CHANGES
+autolabeler:
+  - label: enhancement
+    branch:
+      - '/^feat(ure)?[/-].+/'
+  - label: bug
+    branch:
+      - '/^fix[/-].+/'
+  - label: refactor
+    branch:
+      - '/(refactor|refactoring)[/-].+/'
+  - label: tidyup
+    branch:
+      - '/^tidy[/-].+/'
+  - label: env
+    branch:
+      - '/^env[/-].+/'
+  - label: documentation
+    branch:
+      - '/doc(umentation)[/-].+/'
+    files:
+      - '*.md'
