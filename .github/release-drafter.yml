@@ -48,5 +48,3 @@ autolabeler:
   - label: documentation
     branch:
       - '/doc(umentation)[/-].+/'
-    files:
-      - '*.md'
