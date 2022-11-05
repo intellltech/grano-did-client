@@ -4,38 +4,38 @@
 const objectContaining = expect.objectContaining
 const arrayContaining = expect.arrayContaining
 
-const DidClient = require('../../lib/DidClient')
-const { mockDidConfig } = require('../mocks/MockDidConfig')
+const GranoDidClient = require('../../lib/GranoDidClient')
+const { mockGranoDidConfig } = require('../mocks/MockGranoDidConfig')
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('.create()', () => {
     test('instance of the class', () => {
-      const client = DidClient.create()
+      const client = GranoDidClient.create()
 
       expect(client)
-        .toBeInstanceOf(DidClient)
+        .toBeInstanceOf(GranoDidClient)
     })
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('.createFulfilled()', () => {
     test('instance of the class', async () => {
-      const client = await DidClient.createFulfilled(
-        mockDidConfig
+      const client = await GranoDidClient.createFulfilled(
+        mockGranoDidConfig
       )
 
       expect(client)
-        .toBeInstanceOf(DidClient)
+        .toBeInstanceOf(GranoDidClient)
     })
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('.getChainId()', () => {
     test('getChainId', async () => {
-      const client = await DidClient.createFulfilled(
-        mockDidConfig
+      const client = await GranoDidClient.createFulfilled(
+        mockGranoDidConfig
       )
 
       const chainId = await client.getChainId()
@@ -45,7 +45,7 @@ describe('DidClient', () => {
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('.upload()', () => {
     describe('upload successfully', () => {
       const tables = [
@@ -70,8 +70,8 @@ describe('DidClient', () => {
         wasmPath,
         expected,
       }) => {
-        const client = await DidClient.createFulfilled(
-          mockDidConfig
+        const client = await GranoDidClient.createFulfilled(
+          mockGranoDidConfig
         )
         const response = await client.upload(wasmPath)
         expect(response).toEqual(expected)
@@ -80,7 +80,7 @@ describe('DidClient', () => {
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('.instantiate()', () => {
     describe('instantiate successfully', () => {
       const tables = [
@@ -101,8 +101,8 @@ describe('DidClient', () => {
         codeId,
         expected,
       }) => {
-        const client = await DidClient.createFulfilled(
-          mockDidConfig
+        const client = await GranoDidClient.createFulfilled(
+          mockGranoDidConfig
         )
         const instantiateParams = {
           codeId: codeId
@@ -114,7 +114,7 @@ describe('DidClient', () => {
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('controller(address)', () => {
     describe('controller successfully', () => {
       const tables = [
@@ -132,8 +132,8 @@ describe('DidClient', () => {
         address,
         expected,
       }) => {
-        const client = await DidClient.createFulfilled(
-          mockDidConfig
+        const client = await GranoDidClient.createFulfilled(
+          mockGranoDidConfig
         )
 
         const instantiateParams = {
@@ -151,7 +151,7 @@ describe('DidClient', () => {
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('changeController(old, new)', () => {
     describe('changeController successfully', () => {
       const tables = [
@@ -175,8 +175,8 @@ describe('DidClient', () => {
         newControllerAddress,
         expected,
       }) => {
-        const client = await DidClient.createFulfilled(
-          mockDidConfig
+        const client = await GranoDidClient.createFulfilled(
+          mockGranoDidConfig
         )
         const instantiateParams = {
           codeId: codeId
@@ -206,7 +206,7 @@ describe('DidClient', () => {
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('setAttribute(identifier,name,value,validity)', () => {
     describe('setAttribute successfully', () => {
       const tables = [
@@ -260,8 +260,8 @@ describe('DidClient', () => {
         expectedResponse,
         expectedWasmEvent,
       }) => {
-        const client = await DidClient.createFulfilled(
-          mockDidConfig
+        const client = await GranoDidClient.createFulfilled(
+          mockGranoDidConfig
         )
         const instantiateParams = {
           codeId: codeId
@@ -284,7 +284,7 @@ describe('DidClient', () => {
   })
 })
 
-describe('DidClient', () => {
+describe('GranoDidClient', () => {
   describe('revokeAttribute(identifier,name,value)', () => {
     describe('revokeAttribute successfully', () => {
       const tables = [
@@ -332,8 +332,8 @@ describe('DidClient', () => {
         expectedResponse,
         expectedWasmEvent,
       }) => {
-        const client = await DidClient.createFulfilled(
-          mockDidConfig
+        const client = await GranoDidClient.createFulfilled(
+          mockGranoDidConfig
         )
         const instantiateParams = {
           codeId: codeId
