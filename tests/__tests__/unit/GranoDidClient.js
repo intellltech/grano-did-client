@@ -37,23 +37,6 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('.getChainId()', () => {
-    test('getChainId', async () => {
-      const mockSigningCosmWasmClient = new MockSigningCosmWasmClient()
-
-      const client = GranoDidClient.create({
-        signingCosmWasmClient: /** @type{*} */ (mockSigningCosmWasmClient),
-        granoDidConfig: mockGranoDidConfig,
-      })
-
-      const chainId = await client.getChainId()
-
-      expect(chainId).toBe('did-1')
-    })
-  })
-})
-
-describe('GranoDidClient', () => {
   describe('.upload()', () => {
     describe('upload successfully', () => {
       const tables = [
@@ -85,7 +68,7 @@ describe('GranoDidClient', () => {
           granoDidConfig: mockGranoDidConfig,
         })
 
-        const actual = await client.upload(wasmPath)
+        const actual = await client.upload({ wasmPath: wasmPath })
 
         expect(actual).toMatchObject(expected)
       })

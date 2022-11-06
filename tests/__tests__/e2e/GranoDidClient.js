@@ -34,21 +34,6 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('.getChainId()', () => {
-    test('getChainId', async () => {
-      const client = await GranoDidClient.createFulfilled({
-        OriginalSigningCosmWasmClient: SigningCosmWasmClient,
-        config: mockGranoDidConfig,
-      })
-
-      const chainId = await client.getChainId()
-
-      expect(chainId).toBe('did-1')
-    })
-  })
-})
-
-describe('GranoDidClient', () => {
   describe('.upload()', () => {
     describe('upload successfully', () => {
       const tables = [
@@ -77,7 +62,7 @@ describe('GranoDidClient', () => {
           OriginalSigningCosmWasmClient: SigningCosmWasmClient,
           config: mockGranoDidConfig,
         })
-        const response = await client.upload(wasmPath)
+        const response = await client.upload({ wasmPath: wasmPath })
         expect(response).toEqual(expected)
       })
     })
