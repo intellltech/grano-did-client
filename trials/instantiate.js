@@ -1,21 +1,23 @@
 // @ts-check
 'use strict'
 
-const DidClient = require('../lib/DidClient')
-const DidConfig = require('../lib/DidConfig')
-const { mockDidConfig } =require('./../tests/mocks/MockDidConfig')
+const GranoDidClient = require('../lib/GranoDidClient')
+const GranoDidConfig = require('../lib/GranoDidConfig')
+const { mockGranoDidConfig } =require('./../tests/mocks/MockGranoDidConfig')
 
 
 const main = async () => {
-  const didClient = await DidClient.createFulfilled(mockDidConfig)
+  const granoDidClient = await GranoDidClient.createFulfilled({
+    config: mockGranoDidConfig,
+  })
   const wasmPath = './wasm/did_contract.wasm'
-  const result = await didClient.upload(wasmPath)
+  const result = await granoDidClient.upload(wasmPath)
 
   const instantiateParams = {
     codeId: result.codeId
   }
-  const instantiateResult = await didClient.instantiate(instantiateParams)
-  console.log(instantiateResult)
+  const instantiateResult = await granoDidClient.instantiate(instantiateParams)
+  console.dir(instantiateResult, { depth: null })
 }
 
 main()
