@@ -12,10 +12,6 @@ class MockSigningCosmWasmClient {
   async upload () {
     return mockUploadResult
   }
-
-  async getChainId () {
-    return 'did-1'
-  }
 }
 
 module.exports = MockSigningCosmWasmClient
