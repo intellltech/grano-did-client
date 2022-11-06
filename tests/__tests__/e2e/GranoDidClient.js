@@ -150,7 +150,7 @@ describe('GranoDidClient', () => {
 
         const controllerParams = {
           contractAddress: result.contractAddress,
-          address: address,
+          identifier: address,
         }
         const response = await client.controller(controllerParams)
         expect(response).toEqual(expected)
@@ -164,9 +164,11 @@ describe('GranoDidClient', () => {
     describe('changeController successfully', () => {
       const tables = [
         {
-          codeId: 1,
-          oldControllerAddress: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          newControllerAddress: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          params: {
+            codeId: 1,
+            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            newController: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          },
           expected: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -177,10 +179,8 @@ describe('GranoDidClient', () => {
         }
       ]
 
-      test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        oldControllerAddress,
-        newControllerAddress,
+      test.each(tables)('params: $params', async ({
+        params,
         expected,
       }) => {
         const client = await GranoDidClient.createFulfilled({
@@ -188,30 +188,29 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
         const result = await client.instantiate(instantiateParams)
 
-        const oldControllerParams = {
-          contractAddress: result.contractAddress,
-          address: oldControllerAddress
+        const contractAddress = result.contractAddress
+
+        const controllerParams = {
+          contractAddress: contractAddress,
+          identifier: params.identifier,
         }
-        const controllerQueryForOldAddressResult = await client.controller(oldControllerParams)
-        expect(controllerQueryForOldAddressResult.controller).toEqual(oldControllerAddress)
+        const firstControllerQueryResult = await client.controller(controllerParams)
+        expect(firstControllerQueryResult.controller).toEqual(params.identifier)
 
         const changeControllerParams = {
-          oldControllerAddress: oldControllerAddress,
-          newControllerAddress: newControllerAddress,
+          contractAddress: contractAddress,
+          identifier: params.identifier,
+          newController: params.newController,
         }
         const response = await client.changeController(changeControllerParams)
         expect(response).toEqual(expected)
 
-        const newControllerParams = {
-          contractAddress: result.contractAddress,
-          address: newControllerAddress
-        }
-        const controllerQueryForNewAddressResult = await client.controller(newControllerParams)
-        expect(controllerQueryForNewAddressResult.controller).toEqual(newControllerAddress)
+        const secondControllerQueryResult = await client.controller(controllerParams)
+        expect(secondControllerQueryResult.controller).toEqual(params.newController)
       })
     })
   })
