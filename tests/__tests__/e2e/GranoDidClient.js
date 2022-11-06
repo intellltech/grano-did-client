@@ -4,7 +4,6 @@
 const { SigningCosmWasmClient } = require('@cosmjs/cosmwasm-stargate')
 
 const objectContaining = expect.objectContaining
-const arrayContaining = expect.arrayContaining
 
 const GranoDidClient = require('../../../lib/GranoDidClient')
 const { mockGranoDidConfig } = require('../../mocks/MockGranoDidConfig')
@@ -121,12 +120,14 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('controller(address)', () => {
-    describe('controller successfully', () => {
+  describe('#controller', () => {
+    describe('success', () => {
       const tables = [
         {
-          codeId: 1,
-          address: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          params: {
+            codeId: 1,
+            identifier: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          },
           expected: {
             controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
           }
@@ -134,8 +135,7 @@ describe('GranoDidClient', () => {
       ]
 
       test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        address,
+        params,
         expected,
       }) => {
         const client = await GranoDidClient.createFulfilled({
@@ -144,13 +144,13 @@ describe('GranoDidClient', () => {
         })
 
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
         const result = await client.instantiate(instantiateParams)
 
         const controllerParams = {
           contractAddress: result.contractAddress,
-          identifier: address,
+          identifier: params.identifier,
         }
         const response = await client.controller(controllerParams)
         expect(response).toEqual(expected)
@@ -160,8 +160,8 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('changeController(old, new)', () => {
-    describe('changeController successfully', () => {
+  describe('#changeController', () => {
+    describe('success', () => {
       const tables = [
         {
           params: {
@@ -217,8 +217,8 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('setAttribute(identifier,name,value,validity)', () => {
-    describe('setAttribute successfully', () => {
+  describe('setAttribute', () => {
+    describe('success', () => {
       const tables = [
         {
           params: {
@@ -296,8 +296,8 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('revokeAttribute(identifier,name,value)', () => {
-    describe('revokeAttribute successfully', () => {
+  describe('revokeAttribute', () => {
+    describe('success', () => {
       const tables = [
         {
           params: {
