@@ -1,8 +1,8 @@
 // @ts-check
 'use strict'
 
-const GranoDidConfig = require('../../lib/GranoDidConfig')
-const { mockGranoDidConfigParams } = require('./../mocks/MockGranoDidConfig')
+const GranoDidConfig = require('../../../lib/GranoDidConfig')
+const { mockGranoDidConfigParams } = require('../../mocks/MockGranoDidConfig')
 
 describe('GranoDidConfig', () => {
   describe('.create()', () => {
