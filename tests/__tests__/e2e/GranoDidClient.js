@@ -300,10 +300,12 @@ describe('GranoDidClient', () => {
     describe('revokeAttribute successfully', () => {
       const tables = [
         {
-          codeId: 1,
-          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          name: 'age',
-          value: '20',
+          params: {
+            codeId: 1,
+            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            name: 'service.id',
+            value: '#github',
+          },
           expectedResponse: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -313,18 +315,18 @@ describe('GranoDidClient', () => {
           },
           expectedWasmEvent: {
             type: 'wasm',
-            attributes: arrayContaining([
+            attributes: expect.arrayContaining([
               {
                 key: 'identifier',
                 value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               },
               {
                 key: 'name',
-                value: 'age',
+                value: 'service.id',
               },
               {
                 key: 'value',
-                value: '20',
+                value: '#github',
               },
               {
                 key: 'validTo',
@@ -335,11 +337,8 @@ describe('GranoDidClient', () => {
         }
       ]
 
-      test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        address,
-        name,
-        value,
+      test.each(tables)('params:$params', async ({
+        params,
         expectedResponse,
         expectedWasmEvent,
       }) => {
@@ -348,18 +347,19 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
-        await client.instantiate(instantiateParams)
+        const result = await client.instantiate(instantiateParams)
 
         const revokeAttributeParams = {
-          identifier: address,
-          name: name,
-          value: value,
+          contractAddress: result.contractAddress,
+          identifier: params.identifier,
+          name: params.name,
+          value: params.value,
         }
 
         const response = await client.revokeAttribute(revokeAttributeParams)
-        expect(response).toEqual(expectedResponse)
+        expect(response).toMatchObject(expectedResponse)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
         expect(wasmEvent).toEqual(expectedWasmEvent)
       })
