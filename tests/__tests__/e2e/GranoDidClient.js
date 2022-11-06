@@ -1,11 +1,13 @@
 // @ts-check
 'use strict'
 
+const { SigningCosmWasmClient } = require('@cosmjs/cosmwasm-stargate')
+
 const objectContaining = expect.objectContaining
 const arrayContaining = expect.arrayContaining
 
-const GranoDidClient = require('../../lib/GranoDidClient')
-const { mockGranoDidConfig } = require('../mocks/MockGranoDidConfig')
+const GranoDidClient = require('../../../lib/GranoDidClient')
+const { mockGranoDidConfig } = require('../../mocks/MockGranoDidConfig')
 
 describe('GranoDidClient', () => {
   describe('.create()', () => {
@@ -21,9 +23,10 @@ describe('GranoDidClient', () => {
 describe('GranoDidClient', () => {
   describe('.createFulfilled()', () => {
     test('instance of the class', async () => {
-      const client = await GranoDidClient.createFulfilled(
-        mockGranoDidConfig
-      )
+      const client = await GranoDidClient.createFulfilled({
+        OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+        config: mockGranoDidConfig,
+      })
 
       expect(client)
         .toBeInstanceOf(GranoDidClient)
@@ -34,9 +37,10 @@ describe('GranoDidClient', () => {
 describe('GranoDidClient', () => {
   describe('.getChainId()', () => {
     test('getChainId', async () => {
-      const client = await GranoDidClient.createFulfilled(
-        mockGranoDidConfig
-      )
+      const client = await GranoDidClient.createFulfilled({
+        OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+        config: mockGranoDidConfig,
+      })
 
       const chainId = await client.getChainId()
 
@@ -70,9 +74,10 @@ describe('GranoDidClient', () => {
         wasmPath,
         expected,
       }) => {
-        const client = await GranoDidClient.createFulfilled(
-          mockGranoDidConfig
-        )
+        const client = await GranoDidClient.createFulfilled({
+          OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+          config: mockGranoDidConfig,
+        })
         const response = await client.upload(wasmPath)
         expect(response).toEqual(expected)
       })
@@ -101,9 +106,10 @@ describe('GranoDidClient', () => {
         codeId,
         expected,
       }) => {
-        const client = await GranoDidClient.createFulfilled(
-          mockGranoDidConfig
-        )
+        const client = await GranoDidClient.createFulfilled({
+          OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+          config: mockGranoDidConfig,
+        })
         const instantiateParams = {
           codeId: codeId
         }
@@ -132,9 +138,10 @@ describe('GranoDidClient', () => {
         address,
         expected,
       }) => {
-        const client = await GranoDidClient.createFulfilled(
-          mockGranoDidConfig
-        )
+        const client = await GranoDidClient.createFulfilled({
+          OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+          config: mockGranoDidConfig,
+        })
 
         const instantiateParams = {
           codeId: codeId
@@ -175,9 +182,10 @@ describe('GranoDidClient', () => {
         newControllerAddress,
         expected,
       }) => {
-        const client = await GranoDidClient.createFulfilled(
-          mockGranoDidConfig
-        )
+        const client = await GranoDidClient.createFulfilled({
+          OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+          config: mockGranoDidConfig,
+        })
         const instantiateParams = {
           codeId: codeId
         }
@@ -260,9 +268,10 @@ describe('GranoDidClient', () => {
         expectedResponse,
         expectedWasmEvent,
       }) => {
-        const client = await GranoDidClient.createFulfilled(
-          mockGranoDidConfig
-        )
+        const client = await GranoDidClient.createFulfilled({
+          OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+          config: mockGranoDidConfig,
+        })
         const instantiateParams = {
           codeId: codeId
         }
@@ -332,9 +341,10 @@ describe('GranoDidClient', () => {
         expectedResponse,
         expectedWasmEvent,
       }) => {
-        const client = await GranoDidClient.createFulfilled(
-          mockGranoDidConfig
-        )
+        const client = await GranoDidClient.createFulfilled({
+          OriginalSigningCosmWasmClient: SigningCosmWasmClient,
+          config: mockGranoDidConfig,
+        })
         const instantiateParams = {
           codeId: codeId
         }

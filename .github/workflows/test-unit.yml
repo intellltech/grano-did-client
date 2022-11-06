@@ -1,0 +1,35 @@
+name: UNIT test
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+          node-version: ${{ matrix.node-version }}
+      - name: Create env
+        run: |
+          touch .env
+          echo END_POINT=${{ secrets.END_POINT }} >> .env
+          echo DENOM=${{ secrets.DENOM }} >> .env
+          echo MNEMONIC=${{ secrets.MNEMONIC }} >> .env
+          echo PREFIX=${{ secrets.PREFIX }} >> .env
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
