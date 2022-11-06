@@ -8,7 +8,7 @@ describe('QueryControllerPayload', () => {
     const tables = [
       {
         contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
-        address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+        identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
       }
     ]
     test.each(tables)('params: %o', (params) => {
@@ -24,7 +24,7 @@ describe('QueryControllerPayload', () => {
       {
         params: {
           contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
-          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+          identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
         },
         expected: {
           contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
