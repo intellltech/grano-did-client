@@ -146,9 +146,10 @@ describe('GranoDidClient', () => {
         const instantiateParams = {
           codeId: codeId
         }
-        await client.instantiate(instantiateParams)
+        const result = await client.instantiate(instantiateParams)
 
         const controllerParams = {
+          contractAddress: result.contractAddress,
           address: address,
         }
         const response = await client.controller(controllerParams)
@@ -189,9 +190,10 @@ describe('GranoDidClient', () => {
         const instantiateParams = {
           codeId: codeId
         }
-        await client.instantiate(instantiateParams)
+        const result = await client.instantiate(instantiateParams)
 
         const oldControllerParams = {
+          contractAddress: result.contractAddress,
           address: oldControllerAddress
         }
         const controllerQueryForOldAddressResult = await client.controller(oldControllerParams)
@@ -205,6 +207,7 @@ describe('GranoDidClient', () => {
         expect(response).toEqual(expected)
 
         const newControllerParams = {
+          contractAddress: result.contractAddress,
           address: newControllerAddress
         }
         const controllerQueryForNewAddressResult = await client.controller(newControllerParams)
