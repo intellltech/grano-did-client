@@ -11,21 +11,21 @@ describe('ExecuteSetAttributePayload', () => {
         identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
         name: 'service.id',
         value: '#github',
-        validity: 1000,
+        validity: 3600 * 24,
       },
       {
         contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
         identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
         name: 'service.type',
         value: 'github',
-        validity: 1000,
+        validity: 3600 * 24,
       },
       {
         contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
         identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
         name: 'service.serviceEndpoint',
         value: 'github.com/EG-easy',
-        validity: 1000,
+        validity: 3600 * 24,
       }
     ]
     test.each(tables)('params: %o', (params) => {
@@ -44,7 +44,7 @@ describe('ExecuteSetAttributePayload', () => {
           identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
           name: 'service.id',
           value: '#github',
-          validity: 1000,
+          validity: 3600 * 24,
         },
         expected: {
           contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
@@ -53,7 +53,7 @@ describe('ExecuteSetAttributePayload', () => {
               identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               name: 'service.id',
               value: '#github',
-              validity: 1000,
+              validity: 3600 * 24,
             }
           }
         }
@@ -64,7 +64,7 @@ describe('ExecuteSetAttributePayload', () => {
           identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
           name: 'service.type',
           value: 'github',
-          validity: 1000,
+          validity: 3600 * 24,
         },
         expected: {
           contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
@@ -73,7 +73,7 @@ describe('ExecuteSetAttributePayload', () => {
               identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               name: 'service.type',
               value: 'github',
-              validity: 1000,
+              validity: 3600 * 24,
             }
           }
         }
@@ -84,7 +84,7 @@ describe('ExecuteSetAttributePayload', () => {
           identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
           name: 'service.serviceEndpoint',
           value: 'github.com/EG-easy',
-          validity: 1000,
+          validity: 3600 * 24,
         },
         expected: {
           contractAddress: 'wasm1aqt08e8rfn0n3yl8wnecskne2kgh6ghnet0w8k3k963qnwfllctszm6zqm',
@@ -93,7 +93,7 @@ describe('ExecuteSetAttributePayload', () => {
               identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               name: 'service.serviceEndpoint',
               value: 'github.com/EG-easy',
-              validity: 1000,
+              validity: 3600 * 24,
             }
           }
         }

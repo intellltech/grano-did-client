@@ -221,11 +221,13 @@ describe('GranoDidClient', () => {
     describe('setAttribute successfully', () => {
       const tables = [
         {
-          codeId: 1,
-          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          name: 'age',
-          value: '20',
-          validity: 100,
+          params: {
+            codeId: 1,
+            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            name: 'service.id',
+            value: '#github',
+            validity: 3600 * 24, // second
+          },
           expectedResponse: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -235,18 +237,18 @@ describe('GranoDidClient', () => {
           },
           expectedWasmEvent: {
             type: 'wasm',
-            attributes: arrayContaining([
+            attributes: expect.arrayContaining([
               {
                 key: 'identifier',
                 value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               },
               {
                 key: 'name',
-                value: 'age',
+                value: 'service.id',
               },
               {
                 key: 'value',
-                value: '20',
+                value: '#github',
               },
               {
                 key: 'validTo',
@@ -262,11 +264,7 @@ describe('GranoDidClient', () => {
       ]
 
       test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        address,
-        name,
-        value,
-        validity,
+        params,
         expectedResponse,
         expectedWasmEvent,
       }) => {
@@ -275,19 +273,21 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
-        await client.instantiate(instantiateParams)
+
+        const result = await client.instantiate(instantiateParams)
 
         const setAttributeParams = {
-          identifier: address,
-          name: name,
-          value: value,
-          validity: validity
+          contractAddress: result.contractAddress,
+          identifier: params.identifier,
+          name: params.name,
+          value: params.value,
+          validity: params.validity,
         }
 
         const response = await client.setAttribute(setAttributeParams)
-        expect(response).toEqual(expectedResponse)
+        expect(response).toMatchObject(expectedResponse)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
         expect(wasmEvent).toEqual(expectedWasmEvent)
       })
