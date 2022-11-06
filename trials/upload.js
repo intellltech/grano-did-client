@@ -11,7 +11,7 @@ const main = async () => {
     config: mockGranoDidConfig,
   })
   const wasmPath = './wasm/did_contract.wasm'
-  const result = await granoDidClient.upload(wasmPath)
+  const result = await granoDidClient.upload({ wasmPath: wasmPath })
   console.dir(result, { depth: null })
 }
 
