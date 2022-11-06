@@ -32,4 +32,4 @@ jobs:
           echo PREFIX=${{ secrets.PREFIX }} >> .env
       - run: npm ci
       - run: npm run lint
-      - run: npm run test:unit
+      - run: npm run test
