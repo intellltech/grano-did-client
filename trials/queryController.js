@@ -22,8 +22,8 @@ const main = async () => {
     contractAddress: instantiateResult.contractAddress,
     identifier: 'wasm1edz508tre9d9n9nf8r82prpafhds9v6dp0su0y',
   }
-  const identityOwnerQueryResult = await granoDidClient.controller(controllerParams)
-  console.log(identityOwnerQueryResult)
+  const queryControllerResult = await granoDidClient.controller(controllerParams)
+  console.dir(queryControllerResult, { depth: null })
 }
 
 main()

@@ -3,6 +3,8 @@
 
 const mockConnectWithSignerResult = require('./mockConnectWithSignerResult')
 const mockUploadResult = require('./mockUploadResult')
+const mockInstantiateResult = require('./mockInstantiateResult')
+const mockExecuteResult = require('./mockExecuteResult')
 
 class MockSigningCosmWasmClient {
   static async connectWithSigner () {
@@ -11,6 +13,18 @@ class MockSigningCosmWasmClient {
 
   async upload () {
     return mockUploadResult
+  }
+
+  async instantiate () {
+    return mockInstantiateResult
+  }
+
+  async queryContractSmart () {
+    return expect.any()
+  }
+
+  async execute (key) {
+    return mockExecuteResult[key]
   }
 }
 

@@ -25,8 +25,8 @@ const main = async () => {
   const setAttributeParams = {
     contractAddress: contractAddress,
     identifier: identifier,
-    name: 'age',
-    value: '20',
+    name: 'service.id',
+    value: '#github',
     validity: 3600 * 24,
   }
   const setAttributeResult = await granoDidClient.setAttribute(setAttributeParams)
@@ -35,8 +35,8 @@ const main = async () => {
   const revokeAttributeParams = {
     contractAddress: contractAddress,
     identifier: identifier,
-    name: 'age',
-    value: '20',
+    name: 'service.id',
+    value: '#github',
   }
 
   const revokeAttributeResult = await granoDidClient.revokeAttribute(revokeAttributeParams)

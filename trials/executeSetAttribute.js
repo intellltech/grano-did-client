@@ -21,8 +21,8 @@ const main = async () => {
   const setAttributeParams = {
     contractAddress: instantiateResult.contractAddress,
     identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-    name: 'age',
-    value: '20',
+    name: 'service.id',
+    value: '#github',
     validity: 3600 * 24 // second
   }
 

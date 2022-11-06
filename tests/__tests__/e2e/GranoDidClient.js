@@ -3,13 +3,11 @@
 
 const { SigningCosmWasmClient } = require('@cosmjs/cosmwasm-stargate')
 
-const objectContaining = expect.objectContaining
-
 const GranoDidClient = require('../../../lib/GranoDidClient')
 const { mockGranoDidConfig } = require('../../mocks/MockGranoDidConfig')
 
 describe('GranoDidClient', () => {
-  describe('.create()', () => {
+  describe('#create', () => {
     test('instance of the class', () => {
       const client = GranoDidClient.create()
 
@@ -20,7 +18,7 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('.createFulfilled()', () => {
+  describe('#createFulfilled', () => {
     test('instance of the class', async () => {
       const client = await GranoDidClient.createFulfilled({
         OriginalSigningCosmWasmClient: SigningCosmWasmClient,
@@ -34,12 +32,12 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('.upload()', () => {
-    describe('upload successfully', () => {
+  describe('#upload', () => {
+    describe('success', () => {
       const tables = [
         {
           wasmPath: './wasm/did_contract.wasm',
-          expected: objectContaining({
+          expected: {
             originalSize: expect.any(Number),
             originalChecksum: expect.any(String),
             compressedSize: expect.any(Number),
@@ -50,7 +48,7 @@ describe('GranoDidClient', () => {
             transactionHash: expect.any(String),
             gasWanted: expect.any(Number),
             gasUsed: expect.any(Number)
-          })
+          }
         }
       ]
 
@@ -63,26 +61,26 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const response = await client.upload({ wasmPath: wasmPath })
-        expect(response).toEqual(expected)
+        expect(response).toMatchObject(expected)
       })
     })
   })
 })
 
 describe('GranoDidClient', () => {
-  describe('.instantiate()', () => {
-    describe('instantiate successfully', () => {
+  describe('instantiate', () => {
+    describe('success', () => {
       const tables = [
         {
           codeId: 1,
-          expected: objectContaining({
+          expected: {
             contractAddress: expect.any(String),
             logs: expect.any(Array),
             height: expect.any(Number),
             transactionHash: expect.any(String),
             gasWanted: expect.any(Number),
             gasUsed: expect.any(Number)
-          })
+          }
         }
       ]
 
@@ -98,7 +96,7 @@ describe('GranoDidClient', () => {
           codeId: codeId
         }
         const response = await client.instantiate(instantiateParams)
-        expect(response).toEqual(expected)
+        expect(response).toMatchObject(expected)
       })
     })
   })
@@ -248,7 +246,7 @@ describe('GranoDidClient', () => {
         }
       ]
 
-      test.each(tables)('codeId: $codeId', async ({
+      test.each(tables)('params: $params', async ({
         params,
         expectedResponse,
         expectedWasmEvent,
