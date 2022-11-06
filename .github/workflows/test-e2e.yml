@@ -1,4 +1,4 @@
-name: Node.js CI
+name: E2E test
 
 on:
   push:
@@ -46,4 +46,4 @@ jobs:
           sh start.sh &
       - run: npm ci
       - run: npm run lint
-      - run: npm test
+      - run: npm run test:e2e

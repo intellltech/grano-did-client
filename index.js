@@ -1,10 +1,10 @@
 // @ts-check
 'use strict'
 
-const DidClient = require('./lib/DidClient')
-const DidConfig = require('./lib/DidConfig')
+const GranoDidClient = require('./lib/GranoDidClient')
+const GranoDidConfig = require('./lib/GranoDidConfig')
 
 module.exports = {
-  DidClient,
-  DidConfig,
+  GranoDidClient,
+  GranoDidConfig,
 }

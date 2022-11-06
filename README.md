@@ -1,1 +1,1 @@
-# did-client
+# grano-did-client

@@ -1,7 +1,7 @@
 {
   "name": "@eg-easy/grano-did-client",
-  "version": "0.0.0",
-  "description": "client library for did contract applications",
+  "version": "0.2.0",
+  "description": "client library for grano did contract applications",
   "files": [
     "lib/",
     "README.md",
@@ -10,12 +10,13 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_ENV=development; jest --forceExit --detectOpenHandles",
+    "test": "export NODE_ENV=development; jest tests/__tests__/unit/ --forceExit --detectOpenHandles",
+    "test:e2e": "export NODE_ENV=development; jest tests/__tests__/e2e/ --forceExit --detectOpenHandles",
     "lint": "eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EG-easy/did-client.git"
+    "url": "git+https://github.com/EG-easy/grano-did-client.git"
   },
   "keywords": [
     "did"
@@ -23,9 +24,9 @@
   "author": "EG-easy",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/EG-easy/did-client/issues"
+    "url": "https://github.com/EG-easy/grano-did-client/issues"
   },
-  "homepage": "https://github.com/EG-easy/did-client#readme",
+  "homepage": "https://github.com/EG-easy/grano-did-client#readme",
   "devDependencies": {
     "@types/jest": "^28.1.6",
     "eslint": "^8.21.0",
