@@ -4,7 +4,6 @@
 const { SigningCosmWasmClient } = require('@cosmjs/cosmwasm-stargate')
 
 const objectContaining = expect.objectContaining
-const arrayContaining = expect.arrayContaining
 
 const GranoDidClient = require('../../../lib/GranoDidClient')
 const { mockGranoDidConfig } = require('../../mocks/MockGranoDidConfig')
@@ -121,12 +120,14 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('controller(address)', () => {
-    describe('controller successfully', () => {
+  describe('#controller', () => {
+    describe('success', () => {
       const tables = [
         {
-          codeId: 1,
-          address: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          params: {
+            codeId: 1,
+            identifier: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          },
           expected: {
             controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
           }
@@ -134,8 +135,7 @@ describe('GranoDidClient', () => {
       ]
 
       test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        address,
+        params,
         expected,
       }) => {
         const client = await GranoDidClient.createFulfilled({
@@ -144,12 +144,13 @@ describe('GranoDidClient', () => {
         })
 
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
-        await client.instantiate(instantiateParams)
+        const result = await client.instantiate(instantiateParams)
 
         const controllerParams = {
-          address: address,
+          contractAddress: result.contractAddress,
+          identifier: params.identifier,
         }
         const response = await client.controller(controllerParams)
         expect(response).toEqual(expected)
@@ -159,13 +160,15 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('changeController(old, new)', () => {
-    describe('changeController successfully', () => {
+  describe('#changeController', () => {
+    describe('success', () => {
       const tables = [
         {
-          codeId: 1,
-          oldControllerAddress: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          newControllerAddress: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          params: {
+            codeId: 1,
+            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            newController: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+          },
           expected: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -176,10 +179,8 @@ describe('GranoDidClient', () => {
         }
       ]
 
-      test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        oldControllerAddress,
-        newControllerAddress,
+      test.each(tables)('params: $params', async ({
+        params,
         expected,
       }) => {
         const client = await GranoDidClient.createFulfilled({
@@ -187,43 +188,46 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
-        await client.instantiate(instantiateParams)
+        const result = await client.instantiate(instantiateParams)
 
-        const oldControllerParams = {
-          address: oldControllerAddress
+        const contractAddress = result.contractAddress
+
+        const controllerParams = {
+          contractAddress: contractAddress,
+          identifier: params.identifier,
         }
-        const controllerQueryForOldAddressResult = await client.controller(oldControllerParams)
-        expect(controllerQueryForOldAddressResult.controller).toEqual(oldControllerAddress)
+        const firstControllerQueryResult = await client.controller(controllerParams)
+        expect(firstControllerQueryResult.controller).toEqual(params.identifier)
 
         const changeControllerParams = {
-          oldControllerAddress: oldControllerAddress,
-          newControllerAddress: newControllerAddress,
+          contractAddress: contractAddress,
+          identifier: params.identifier,
+          newController: params.newController,
         }
         const response = await client.changeController(changeControllerParams)
         expect(response).toEqual(expected)
 
-        const newControllerParams = {
-          address: newControllerAddress
-        }
-        const controllerQueryForNewAddressResult = await client.controller(newControllerParams)
-        expect(controllerQueryForNewAddressResult.controller).toEqual(newControllerAddress)
+        const secondControllerQueryResult = await client.controller(controllerParams)
+        expect(secondControllerQueryResult.controller).toEqual(params.newController)
       })
     })
   })
 })
 
 describe('GranoDidClient', () => {
-  describe('setAttribute(identifier,name,value,validity)', () => {
-    describe('setAttribute successfully', () => {
+  describe('setAttribute', () => {
+    describe('success', () => {
       const tables = [
         {
-          codeId: 1,
-          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          name: 'age',
-          value: '20',
-          validity: 100,
+          params: {
+            codeId: 1,
+            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            name: 'service.id',
+            value: '#github',
+            validity: 3600 * 24, // second
+          },
           expectedResponse: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -233,18 +237,18 @@ describe('GranoDidClient', () => {
           },
           expectedWasmEvent: {
             type: 'wasm',
-            attributes: arrayContaining([
+            attributes: expect.arrayContaining([
               {
                 key: 'identifier',
                 value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               },
               {
                 key: 'name',
-                value: 'age',
+                value: 'service.id',
               },
               {
                 key: 'value',
-                value: '20',
+                value: '#github',
               },
               {
                 key: 'validTo',
@@ -260,11 +264,7 @@ describe('GranoDidClient', () => {
       ]
 
       test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        address,
-        name,
-        value,
-        validity,
+        params,
         expectedResponse,
         expectedWasmEvent,
       }) => {
@@ -273,19 +273,21 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
-        await client.instantiate(instantiateParams)
+
+        const result = await client.instantiate(instantiateParams)
 
         const setAttributeParams = {
-          identifier: address,
-          name: name,
-          value: value,
-          validity: validity
+          contractAddress: result.contractAddress,
+          identifier: params.identifier,
+          name: params.name,
+          value: params.value,
+          validity: params.validity,
         }
 
         const response = await client.setAttribute(setAttributeParams)
-        expect(response).toEqual(expectedResponse)
+        expect(response).toMatchObject(expectedResponse)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
         expect(wasmEvent).toEqual(expectedWasmEvent)
       })
@@ -294,14 +296,16 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
-  describe('revokeAttribute(identifier,name,value)', () => {
-    describe('revokeAttribute successfully', () => {
+  describe('revokeAttribute', () => {
+    describe('success', () => {
       const tables = [
         {
-          codeId: 1,
-          address: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-          name: 'age',
-          value: '20',
+          params: {
+            codeId: 1,
+            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            name: 'service.id',
+            value: '#github',
+          },
           expectedResponse: {
             logs: expect.any(Array),
             height: expect.any(Number),
@@ -311,18 +315,18 @@ describe('GranoDidClient', () => {
           },
           expectedWasmEvent: {
             type: 'wasm',
-            attributes: arrayContaining([
+            attributes: expect.arrayContaining([
               {
                 key: 'identifier',
                 value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
               },
               {
                 key: 'name',
-                value: 'age',
+                value: 'service.id',
               },
               {
                 key: 'value',
-                value: '20',
+                value: '#github',
               },
               {
                 key: 'validTo',
@@ -333,11 +337,8 @@ describe('GranoDidClient', () => {
         }
       ]
 
-      test.each(tables)('codeId: $codeId', async ({
-        codeId,
-        address,
-        name,
-        value,
+      test.each(tables)('params:$params', async ({
+        params,
         expectedResponse,
         expectedWasmEvent,
       }) => {
@@ -346,18 +347,19 @@ describe('GranoDidClient', () => {
           config: mockGranoDidConfig,
         })
         const instantiateParams = {
-          codeId: codeId
+          codeId: params.codeId
         }
-        await client.instantiate(instantiateParams)
+        const result = await client.instantiate(instantiateParams)
 
         const revokeAttributeParams = {
-          identifier: address,
-          name: name,
-          value: value,
+          contractAddress: result.contractAddress,
+          identifier: params.identifier,
+          name: params.name,
+          value: params.value,
         }
 
         const response = await client.revokeAttribute(revokeAttributeParams)
-        expect(response).toEqual(expectedResponse)
+        expect(response).toMatchObject(expectedResponse)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
         expect(wasmEvent).toEqual(expectedWasmEvent)
       })

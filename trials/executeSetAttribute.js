@@ -17,7 +17,17 @@ const main = async () => {
     codeId: result.codeId
   }
   const instantiateResult = await granoDidClient.instantiate(instantiateParams)
-  console.dir(instantiateResult, { depth: null })
+
+  const setAttributeParams = {
+    contractAddress: instantiateResult.contractAddress,
+    identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+    name: 'age',
+    value: '20',
+    validity: 3600 * 24 // second
+  }
+
+  const setAttributeResult = await granoDidClient.setAttribute(setAttributeParams)
+  console.dir(setAttributeResult, { depth: null })
 }
 
 main()
