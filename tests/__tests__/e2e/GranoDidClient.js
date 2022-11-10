@@ -285,9 +285,17 @@ describe('GranoDidClient', () => {
         {
           params: {
             codeId: 1,
-            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-            name: 'service.id',
-            value: '#github',
+            setAttribute: {
+              identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              name: 'service.id',
+              value: '#github',
+              validity: 3600 * 24, // second
+            },
+            revokeAttribute: {
+              identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              name: 'service.id',
+              value: '#github',
+            }
           },
           expectedResponse: {
             logs: expect.any(Array),
@@ -334,11 +342,22 @@ describe('GranoDidClient', () => {
         }
         const result = await client.instantiate(instantiateParams)
 
+        const contractAddress = result.contractAddress
+
+        const setAttributeParams = {
+          contractAddress: contractAddress,
+          identifier: params.setAttribute.identifier,
+          name: params.setAttribute.name,
+          value: params.setAttribute.value,
+          validity: params.setAttribute.validity,
+        }
+        await client.setAttribute(setAttributeParams)
+
         const revokeAttributeParams = {
-          contractAddress: result.contractAddress,
-          identifier: params.identifier,
-          name: params.name,
-          value: params.value,
+          contractAddress: contractAddress,
+          identifier: params.revokeAttribute.identifier,
+          name: params.revokeAttribute.name,
+          value: params.revokeAttribute.value,
         }
 
         const response = await client.revokeAttribute(revokeAttributeParams)
