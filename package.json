@@ -1,6 +1,6 @@
 {
   "name": "@eg-easy/grano-did-client",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "client library for grano did contract applications",
   "files": [
     "lib/",
@@ -11,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "test": "export NODE_ENV=development; jest tests/__tests__/unit/ --forceExit --detectOpenHandles",
-    "test:e2e": "export NODE_ENV=development; jest tests/__tests__/e2e/ --forceExit --detectOpenHandles",
+    "test:e2e": "export NODE_ENV=development; jest tests/__e2e__/ --forceExit --detectOpenHandles",
     "lint": "eslint ."
   },
   "repository": {
