@@ -25,41 +25,42 @@ describe('GranoDidClient', () => {
               value: '#github',
             }
           },
-          expectedResponse: {
-            logs: expect.any(Array),
-            height: expect.any(Number),
-            transactionHash: expect.any(String),
-            gasWanted: expect.any(Number),
-            gasUsed: expect.any(Number)
-          },
-          expectedWasmEvent: {
-            type: 'wasm',
-            attributes: expect.arrayContaining([
-              {
-                key: 'identifier',
-                value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-              },
-              {
-                key: 'name',
-                value: 'service.id',
-              },
-              {
-                key: 'value',
-                value: '#github',
-              },
-              {
-                key: 'validTo',
-                value: '0',
-              },
-            ])
+          expected: {
+            response: {
+              logs: expect.any(Array),
+              height: expect.any(Number),
+              transactionHash: expect.any(String),
+              gasWanted: expect.any(Number),
+              gasUsed: expect.any(Number)
+            },
+            wasmEvent: {
+              type: 'wasm',
+              attributes: expect.arrayContaining([
+                {
+                  key: 'identifier',
+                  value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+                },
+                {
+                  key: 'name',
+                  value: 'service.id',
+                },
+                {
+                  key: 'value',
+                  value: '#github',
+                },
+                {
+                  key: 'validTo',
+                  value: '0',
+                },
+              ])
+            },
           }
         }
       ]
 
       test.each(tables)('params:$params', async ({
         params,
-        expectedResponse,
-        expectedWasmEvent,
+        expected,
       }) => {
         const client = await GranoDidClient.createFulfilled({
           OriginalSigningCosmWasmClient: SigningCosmWasmClient,
@@ -89,9 +90,19 @@ describe('GranoDidClient', () => {
         }
 
         const response = await client.revokeAttribute(revokeAttributeParams)
-        expect(response).toMatchObject(expectedResponse)
+        expect(response).toMatchObject(expected.response)
         const wasmEvent = response.logs[0].events.find((e) => e.type === 'wasm')
-        expect(wasmEvent).toEqual(expectedWasmEvent)
+        expect(wasmEvent).toEqual(expected.wasmEvent)
+
+        // check queryValidTo
+        const validToParams = {
+          contractAddress: contractAddress,
+          identifier: params.revokeAttribute.identifier,
+          name: params.revokeAttribute.name,
+          value: params.revokeAttribute.value,
+        }
+        const queryValidToResult = await client.validTo(validToParams)
+        expect(parseInt(queryValidToResult.valid_to)).toEqual(0)
       })
     })
   })
