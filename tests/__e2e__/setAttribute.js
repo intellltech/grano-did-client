@@ -65,6 +65,9 @@ describe('GranoDidClient', () => {
             secondQueryAttributeResult: {
               values: ['#github', '#twitter']
             },
+            firstQueryValidToResult: {
+              valid_to: '0'
+            },
           }
         }
       ]
@@ -106,6 +109,16 @@ describe('GranoDidClient', () => {
         const queryAttributeResult = await client.attribute(attributeParams)
         expect(queryAttributeResult).toEqual(expected.firstQueryAttributeResult)
 
+        // check queryValidTo
+        const validToParams = {
+          contractAddress: contractAddress,
+          identifier: params.firstRequest.identifier,
+          name: params.firstRequest.name,
+          value: params.firstRequest.value,
+        }
+        const firstQueryValidToResult = await client.validTo(validToParams)
+        expect(parseInt(firstQueryValidToResult.valid_to)).toBeGreaterThan(0)
+
         const secondSetAttributeParams = {
           contractAddress: contractAddress,
           identifier: params.secondRequest.identifier,
@@ -119,6 +132,16 @@ describe('GranoDidClient', () => {
         // check queryAttribute again
         const secondQueryAttributeResult = await client.attribute(attributeParams)
         expect(secondQueryAttributeResult).toEqual(expected.secondQueryAttributeResult)
+
+        // check queryValidTo again
+        const secondValidToParams = {
+          contractAddress: contractAddress,
+          identifier: params.secondRequest.identifier,
+          name: params.secondRequest.name,
+          value: params.secondRequest.value,
+        }
+        const secondQueryValidToResult = await client.validTo(secondValidToParams)
+        expect(parseInt(secondQueryValidToResult.valid_to)).toBeGreaterThan(parseInt(firstQueryValidToResult.valid_to))
       })
     })
   })

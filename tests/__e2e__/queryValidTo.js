@@ -7,7 +7,7 @@ const GranoDidClient = require('../../lib/GranoDidClient')
 const { mockGranoDidConfig } = require('../mocks/MockGranoDidConfig')
 
 describe('GranoDidClient', () => {
-  describe('#attribute', () => {
+  describe('#validTo', () => {
     describe('success', () => {
       const tables = [
         {
@@ -15,8 +15,9 @@ describe('GranoDidClient', () => {
             codeId: 1,
             identifier: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
             name: 'service',
+            value: '#github',
           },
-          expected: { values: [] },
+          expected: { valid_to: '0' },
         },
       ]
 
@@ -36,14 +37,15 @@ describe('GranoDidClient', () => {
 
         const contractAddress = result.contractAddress
 
-        const attributeParams = {
+        const validToParams = {
           contractAddress: contractAddress,
           identifier: params.identifier,
           name: params.identifier,
+          value: params.value,
         }
-        const queryAttributeResult = await client.attribute(attributeParams)
+        const queryValidToResult = await client.validTo(validToParams)
 
-        expect(queryAttributeResult).toEqual(expected)
+        expect(queryValidToResult).toEqual(expected)
       })
     })
   })
