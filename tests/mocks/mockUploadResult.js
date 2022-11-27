@@ -2,11 +2,11 @@
 'use strict'
 
 const mockUploadResult = {
-  originalSize: 177727,
-  originalChecksum: 'b879ff58a6ec7d1fbec38a5d7316b2f567c842fb6fb2d192d12b0afad8c81752',
-  compressedSize: 57276,
-  compressedChecksum: '30cf5cffd3cc6dac7a1bbdeff83c69185dcbdb41de87326711330832ee393904',
-  codeId: 13,
+  originalSize: 197249,
+  originalChecksum: 'ab2caed266880d30d3c81f4e269874e9a579bbc6ab31f7ad7a7be7786504bdf0',
+  compressedSize: 64085,
+  compressedChecksum: '46abb2c3d6a9570111268760fb92183595bdf7844ce01e57cc76f72f64f2c9ce',
+  codeId: 9,
   logs: [
     {
       msg_index: 0,
@@ -19,21 +19,27 @@ const mockUploadResult = {
             { key: 'module', value: 'wasm' },
             {
               key: 'sender',
-              value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u'
+              value: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev'
             }
           ]
         },
         {
           type: 'store_code',
-          attributes: [{ key: 'code_id', value: '13' }]
+          attributes: [
+            {
+              key: 'code_checksum',
+              value: 'ab2caed266880d30d3c81f4e269874e9a579bbc6ab31f7ad7a7be7786504bdf0'
+            },
+            { key: 'code_id', value: '9' }
+          ]
         }
       ]
     }
   ],
-  height: 6151,
-  transactionHash: '690E86B87C2B9DC9075399CA133A733A45B8B52FB6B8F502BD2D642435349BAC',
+  height: 803,
+  transactionHash: 'F8A15A760690E9EA87E7FC845E12576A27AF66033D9F1C04164DE319A129EE93',
   gasWanted: 1500000,
-  gasUsed: 1173081
+  gasUsed: 1309729
 }
 
 module.exports = mockUploadResult
