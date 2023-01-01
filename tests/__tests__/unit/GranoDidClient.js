@@ -114,13 +114,13 @@ describe('GranoDidClient', () => {
         {
           params: {
             codeId: 1,
-            identifier: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
             mockResponse: {
-              controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+              controller: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
             },
           },
           expected: {
-            controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            controller: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
           }
         }
       ]
@@ -152,23 +152,64 @@ describe('GranoDidClient', () => {
 })
 
 describe('GranoDidClient', () => {
+  describe('#changed', () => {
+    describe('success', () => {
+      const tables = [
+        {
+          params: {
+            codeId: 1,
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
+            mockResponse: {
+              block: 1000,
+            },
+          },
+          expected: {
+            block: expect.any(Number),
+          }
+        }
+      ]
+
+      test.each(tables)('codeId: $codeId', async ({
+        params,
+        expected,
+      }) => {
+        const instantiateParams = {
+          codeId: params.codeId
+        }
+        const result = await client.instantiate(instantiateParams)
+
+        const changedParams = {
+          contractAddress: result.contractAddress,
+          identifier: params.identifier,
+        }
+        const spyClient = jest.spyOn(mockSigningCosmWasmClient, 'queryContractSmart')
+          .mockImplementation(() => Promise.resolve(params.mockResponse))
+        const response = await client.changed(changedParams)
+        expect(response).toEqual(expected)
+
+        expect(spyClient).toHaveBeenCalled()
+
+        spyClient.mockRestore()
+      })
+    })
+  })
+})
+
+describe('GranoDidClient', () => {
   describe('#changeController', () => {
     describe('success', () => {
       const tables = [
         {
           params: {
             codeId: 1,
-            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-            newController: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
+            newController: 'grano14svund04f69g3ue77d2qc7nf0tye4cf0pm2zum',
             mockQueryResponseFirst: {
-              controller: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              controller: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
             },
             mockQueryResponseSecond: {
-              controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+              controller: 'grano14svund04f69g3ue77d2qc7nf0tye4cf0pm2zum',
             },
-            mockExecuteResponse: {
-
-            }
           },
           expected: {
             logs: expect.any(Array),
@@ -233,7 +274,7 @@ describe('GranoDidClient', () => {
         {
           params: {
             codeId: 1,
-            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
             name: 'service.id',
             value: '#github',
             validity: 3600 * 24, // second
@@ -249,8 +290,12 @@ describe('GranoDidClient', () => {
             type: 'wasm',
             attributes: expect.arrayContaining([
               {
+                key: 'executeMsg',
+                value: 'setAttribute',
+              },
+              {
                 key: 'identifier',
-                value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+                value: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
               },
               {
                 key: 'name',
@@ -314,7 +359,7 @@ describe('GranoDidClient', () => {
         {
           params: {
             codeId: 1,
-            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
             name: 'service.id',
             value: '#github',
           },
@@ -329,8 +374,12 @@ describe('GranoDidClient', () => {
             type: 'wasm',
             attributes: expect.arrayContaining([
               {
+                key: 'executeMsg',
+                value: 'revokeAttribute',
+              },
+              {
                 key: 'identifier',
-                value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+                value: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
               },
               {
                 key: 'name',

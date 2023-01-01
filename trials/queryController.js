@@ -20,7 +20,7 @@ const main = async () => {
 
   const controllerParams = {
     contractAddress: instantiateResult.contractAddress,
-    identifier: 'wasm1edz508tre9d9n9nf8r82prpafhds9v6dp0su0y',
+    identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
   }
   const queryControllerResult = await granoDidClient.controller(controllerParams)
   console.dir(queryControllerResult, { depth: null })

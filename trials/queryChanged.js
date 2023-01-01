@@ -18,13 +18,12 @@ const main = async () => {
   }
   const instantiateResult = await granoDidClient.instantiate(instantiateParams)
 
-  const attributeParams = {
+  const changedParams = {
     contractAddress: instantiateResult.contractAddress,
     identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
-    name: 'service',
   }
-  const queryAttributeResult = await granoDidClient.attribute(attributeParams)
-  console.dir(queryAttributeResult, { depth: null })
+  const queryControllerResult = await granoDidClient.changed(changedParams)
+  console.dir(queryControllerResult, { depth: null })
 }
 
 main()

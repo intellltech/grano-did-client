@@ -20,7 +20,7 @@ const main = async () => {
 
   const contractAddress = instantiateResult.contractAddress
 
-  const identifier = 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u'
+  const identifier = 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev'
 
   const setAttributeParams = {
     contractAddress: contractAddress,
