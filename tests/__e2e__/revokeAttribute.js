@@ -14,13 +14,13 @@ describe('GranoDidClient', () => {
           params: {
             codeId: 1,
             setAttribute: {
-              identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
               name: 'service.id',
               value: '#github',
               validity: 3600 * 24, // second
             },
             revokeAttribute: {
-              identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+              identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
               name: 'service.id',
               value: '#github',
             }
@@ -37,8 +37,12 @@ describe('GranoDidClient', () => {
               type: 'wasm',
               attributes: expect.arrayContaining([
                 {
+                  key: 'executeMsg',
+                  value: 'revokeAttribute',
+                },
+                {
                   key: 'identifier',
-                  value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
+                  value: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
                 },
                 {
                   key: 'name',

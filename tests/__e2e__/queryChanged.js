@@ -7,20 +7,21 @@ const GranoDidClient = require('../../lib/GranoDidClient')
 const { mockGranoDidConfig } = require('../mocks/MockGranoDidConfig')
 
 describe('GranoDidClient', () => {
-  describe('#attribute', () => {
+  describe('#changed', () => {
     describe('success', () => {
       const tables = [
         {
           params: {
             codeId: 1,
             identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
-            name: 'service',
           },
-          expected: { values: [] },
-        },
+          expected: {
+            block: expect.any(Number),
+          }
+        }
       ]
 
-      test.each(tables)('params:$params', async ({
+      test.each(tables)('params: $params', async ({
         params,
         expected,
       }) => {
@@ -34,16 +35,12 @@ describe('GranoDidClient', () => {
         }
         const result = await client.instantiate(instantiateParams)
 
-        const contractAddress = result.contractAddress
-
-        const attributeParams = {
-          contractAddress: contractAddress,
+        const changedParams = {
+          contractAddress: result.contractAddress,
           identifier: params.identifier,
-          name: params.identifier,
         }
-        const queryAttributeResult = await client.attribute(attributeParams)
-
-        expect(queryAttributeResult).toEqual(expected)
+        const response = await client.changed(changedParams)
+        expect(response).toEqual(expected)
       })
     })
   })
