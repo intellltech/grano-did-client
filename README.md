@@ -1,7 +1,7 @@
 # grano-did-client
 
 ## How to Use
-0. Start [grano did node](https://github.com/EG-easy/grano-did-node).
+0. Start [grano did node](https://github.com/EG-easy/grano-did-node) with [grano-did-contract](https://github.com/eg-easy/grano-did-contract) is deployed.
 
 1. Set grano did node access configuration in `.env`
 ```env
@@ -10,8 +10,6 @@ DENOM='ugrano'
 MNEMONIC='estate giraffe icon february goat observe actor left armed zone million note system myth coconut series calm steak dinosaur twin immune mansion morning drastic'
 PREFIX='grano'
 FROM_ADDRESS='grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev'
-
-CONTRACT_ADDRESS='grano1cefw8elvkj8t63k5ea2mlpkgyxgjlw2g4vw5l7j3txu925ug9ffskc6vhc'
 ```
 
 2. Call Client
