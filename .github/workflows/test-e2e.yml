@@ -36,9 +36,9 @@ jobs:
           go-version: '^1.19.0'
       - name: Install wasmd binary
         run: |
-          git clone https://github.com/CosmWasm/wasmd.git
-          cd wasmd
-          git checkout -b v0.28.0 tags/v0.28.0
+          git clone https://github.com/EG-easy/grano-did-node.git
+          cd grano-did-node
+          git checkout -b v0.1.0 tags/v0.1.0
           make install
       - name: Run node in background
         working-directory: tests/scripts

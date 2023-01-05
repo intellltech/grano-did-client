@@ -20,8 +20,8 @@ const main = async () => {
 
   const contractAddress = instantiateResult.contractAddress
 
-  const identifierAddress = 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u'
-  const newContollerAddress = 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv'
+  const identifierAddress = 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev'
+  const newContollerAddress = 'grano14svund04f69g3ue77d2qc7nf0tye4cf0pm2zum'
 
   const contollerParams = {
     contractAddress: contractAddress,

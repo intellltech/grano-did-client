@@ -13,8 +13,8 @@ describe('GranoDidClient', () => {
         {
           params: {
             codeId: 1,
-            identifier: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u',
-            newController: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
+            newController: 'grano14svund04f69g3ue77d2qc7nf0tye4cf0pm2zum',
           },
           expected: {
             logs: expect.any(Array),

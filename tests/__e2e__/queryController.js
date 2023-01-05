@@ -13,10 +13,10 @@ describe('GranoDidClient', () => {
         {
           params: {
             codeId: 1,
-            identifier: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
           },
           expected: {
-            controller: 'wasm1y0k76dnteklegupzjj0yur6pj0wu9e0z35jafv',
+            controller: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
           }
         }
       ]

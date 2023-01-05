@@ -20,7 +20,7 @@ const main = async () => {
 
   const validToParams = {
     contractAddress: instantiateResult.contractAddress,
-    identifier: 'wasm1edz508tre9d9n9nf8r82prpafhds9v6dp0su0y',
+    identifier: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev',
     name: 'service',
     value: '{"id":"#linkedin","type":"linkedin","serviceEndpoint":"linkedin.com/in/henry-tsai-6b884014"}',
   }

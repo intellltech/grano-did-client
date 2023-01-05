@@ -2,7 +2,7 @@
 'use strict'
 
 const mockInstantiateResult = {
-  contractAddress: 'wasm1agfn5vwde9nn8nhj237a2y94f5kaxn2nccr3xcpy6g8yc4whl4uq7qmf7k',
+  contractAddress: 'grano1d2r4s2q8kumpmvx6dyj77klhgm5e6fs9njmmz6ye7ukqa77ddtds2yaejd',
   logs: [
     {
       msg_index: 0,
@@ -13,9 +13,9 @@ const mockInstantiateResult = {
           attributes: [
             {
               key: '_contract_address',
-              value: 'wasm1agfn5vwde9nn8nhj237a2y94f5kaxn2nccr3xcpy6g8yc4whl4uq7qmf7k'
+              value: 'grano1d2r4s2q8kumpmvx6dyj77klhgm5e6fs9njmmz6ye7ukqa77ddtds2yaejd'
             },
-            { key: 'code_id', value: '37' }
+            { key: 'code_id', value: '10' }
           ]
         },
         {
@@ -28,17 +28,17 @@ const mockInstantiateResult = {
             { key: 'module', value: 'wasm' },
             {
               key: 'sender',
-              value: 'wasm14fsulwpdj9wmjchsjzuze0k37qvw7n7a7l207u'
+              value: 'grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev'
             }
           ]
         }
       ]
     }
   ],
-  height: 11168,
-  transactionHash: '440ED066780EFA8BA23A6010E6DE6D7981534575E478235D1CE728D78C699ECC',
+  height: 822,
+  transactionHash: 'E1E576AE178F9CA8463808A3FE7383A612B239AFEE6401C622F4E0448C86EA29',
   gasWanted: 500000,
-  gasUsed: 151564
+  gasUsed: 152770
 }
 
 module.exports = mockInstantiateResult
