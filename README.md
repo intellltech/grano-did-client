@@ -1,4 +1,5 @@
-# grano-did-client
+# Grano DID Client
+Grano DID Client is a client library to interact with [grano-did-contract](https://github.com/eg-easy/grano-did-contract). It wraps [CosmJS](https://github.com/cosmos/cosmjs) client library.
 
 ## How to Use
 0. Start [grano did node](https://github.com/EG-easy/grano-did-node) with [grano-did-contract](https://github.com/eg-easy/grano-did-contract) is deployed.
