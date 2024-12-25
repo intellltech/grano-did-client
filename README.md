@@ -1,8 +1,8 @@
 # Grano DID Client
-Grano DID Client is a client library to interact with [grano-did-contract](https://github.com/eg-easy/grano-did-contract). It wraps [CosmJS](https://github.com/cosmos/cosmjs) client library.
+Grano DID Client is a client library to interact with [grano-did-contract](https://github.com/intellltech/grano-did-contract). It wraps [CosmJS](https://github.com/cosmos/cosmjs) client library.
 
 ## How to Use
-0. Start [grano did node](https://github.com/EG-easy/grano-did-node) with [grano-did-contract](https://github.com/eg-easy/grano-did-contract) is deployed.
+0. Start [grano did node](https://github.com/intellltech/grano-did-node) with [grano-did-contract](https://github.com/intellltech/grano-did-contract) is deployed.
 
 1. Set grano did node access configuration in `.env`
 ```env
@@ -15,7 +15,7 @@ FROM_ADDRESS='grano14fsulwpdj9wmjchsjzuze0k37qvw7n7am3reev'
 
 2. Call Client
 ```index.js
-const { GranoDidClient } = require('@eg-easy/grano-did-client')
+const { GranoDidClient } = require('@intellltech/grano-did-client')
 
 const main = async () => {
   const granoDidClient = await GranoDidClient.createFulfilled()
@@ -40,8 +40,8 @@ Please check [trials](./trials) folder to know more examples about how to intera
 ```
 
 ## References
-- https://github.com/eg-easy/grano-did
-- https://github.com/EG-easy/grano-did-contract
-- https://github.com/EG-easy/grano-did-exporter
-- https://github.com/EG-easy/grano-did-node
-- https://github.com/EG-easy/grano-did-resolver
+- https://github.com/intellltech/grano-did
+- https://github.com/intellltech/grano-did-contract
+- https://github.com/intellltech/grano-did-exporter
+- https://github.com/intellltech/grano-did-node
+- https://github.com/intellltech/grano-did-resolver
